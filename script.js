@@ -11,8 +11,9 @@ document.querySelector('.guess').value = 23;
 console.log(document.querySelector('.guess').value);
 */
 
-const secretNuber = Math.trunc(Math.random()*20) +1;
-document.querySelector('.number').textContent = secretNuber;
+let secretNuber = Math.trunc(Math.random()*20) +1;
+let highscore = 0;
+// document.querySelector('.number').textContent = secretNuber;
 let reduceScore = 20;
 
 document.querySelector('.check').addEventListener('click', function() {
@@ -24,6 +25,14 @@ document.querySelector('.check').addEventListener('click', function() {
     }
     else if (guess === secretNuber) {
         document.querySelector('.message').textContent = 'You are correct 🎉';
+        document.querySelector('body').style.backgroundColor = '#60b347';
+        document.querySelector('.number').style.width = '30rem';
+        document.querySelector('.number').textContent = secretNuber;
+
+        if(reduceScore > highscore){
+            highscore = reduceScore;
+            document.querySelector('.highscore').textContent = highscore;
+        }
     }
     else if (guess > secretNuber) {
         if(reduceScore > 1){
@@ -33,6 +42,7 @@ document.querySelector('.check').addEventListener('click', function() {
     } else { 
         document.querySelector('.message').textContent = '💣 Game Over';
         document.querySelector('.score').textContent = 0;
+        document.querySelector('body').style.backgroundColor = '#60b347';
     }
     }
     else if (guess < secretNuber) {
@@ -46,3 +56,14 @@ document.querySelector('.check').addEventListener('click', function() {
         }
 }});
 
+// Again button
+
+document.querySelector('.again').addEventListener('click', function(){
+    secretNuber = Math.trunc(Math.random()*20) +1;
+    document.querySelector('.number').textContent = '?';
+    document.querySelector('.score').textContent = '20';
+    document.querySelector('body').style.backgroundColor = '#222'
+    document.querySelector('.message').textContent = 'Start guessing...';
+    document.querySelector('.number').style.width = '15 rem';
+    document.querySelector('.guess').value = "";
+})
